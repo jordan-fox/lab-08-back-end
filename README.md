@@ -131,11 +131,11 @@ Actual time needed to complete: 1 hr 30 min
 *****************************************************************************
 ### Lab 8
 
-Number and name of feature: _____________
+Number and name of feature: Database
 
-Estimate of time needed to complete: ________
+Estimate of time needed to complete: 1 hr.
 
-Start time: _______
+Start time: 1440 L
 
 Finish time: _______
 
