@@ -137,6 +137,18 @@ Estimate of time needed to complete: 1 hr.
 
 Start time: 1440 L
 
+Finish time: 1738 L
+
+Actual time needed to complete: 2 hr. 58 min.
+
+*****************************************************************************
+
+Number and name of feature: Server
+
+Estimate of time needed to complete: 4 hrs.
+
+Start time: _______
+
 Finish time: _______
 
 Actual time needed to complete: ________
