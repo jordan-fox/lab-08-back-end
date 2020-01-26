@@ -5,7 +5,7 @@ CREATE TABLE locations (
     search_query text,
     formatted_query text,
     latitude float,
-    longitude float,
+    longitude float
 );
 
 CREATE TABLE weather (
@@ -19,5 +19,5 @@ CREATE TABLE events (
     link text,
     name text,
     event_date varchar,
-    summary text,
+    summary text
 );
