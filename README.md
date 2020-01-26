@@ -1,7 +1,7 @@
 # City Explorer
 ## lab-06-backend
 
-**Author**: Clayton, (Lab 6) Tenaw, (Lab 7) Thomas S, (Lab 8) nn
+**Author**: Clayton, (Lab 6) Tenaw, (Lab 7) Thomas S, (Lab 8) Thomas S and Jordan Fox, 
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Delpoyed site

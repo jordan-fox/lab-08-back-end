@@ -1,3 +1,18 @@
+-- initial table to populate so that tables are seeded --
+
+DROP TABLE IF EXISTS shapes;
+
+CREATE TABLE (
+    id = serial, primary key,
+    shape = text,
+    color = text
+)
+
+INPUT INTO shapes (shape, color)
+    VALUES ('square', 'red'), ('triangle', 'blue');
+
+-- start of LOCATIONS, WEATHER, EVENTS table creation --
+
 DROP TABLE IF EXISTS locations, weather, events;
 
 CREATE TABLE locations (

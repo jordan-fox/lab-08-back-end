@@ -14,7 +14,6 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(cors());
 
-
 // Endpoint calls
 //route syntax = app.<operation>('<route>', callback);
 app.get('/locations', locationHandler);
@@ -42,15 +41,12 @@ function Event (event) {
   this.summary = event.description;
 }
 
-// Endpoint callback functions
-
+// CLIENT info
 
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.error('pg problms', err));
 
-
-
-
+// Endpoint callback functions
 
 function locationHandler(request, response) {
   try {
@@ -115,9 +111,7 @@ function errorHandler (error, request, response) {
   response.status(500).send(error);
 }
 
-
 // app.listen(PORT, () => console.log(`Server up on port ${PORT}`));
-
 
 client.connect()
   .then( () => {
