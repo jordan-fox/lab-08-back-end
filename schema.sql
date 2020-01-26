@@ -10,14 +10,14 @@ CREATE TABLE locations (
 
 CREATE TABLE weather (
     id serial primary key,
-    time ?????,
-    forecast ?????,
+    time varchar,
+    forecast text
 );
 
 CREATE TABLE events (
     id serial primary key,
-    search_query text,
-    formatted_query text,
-    latitude float,
-    longitude float,
+    link text,
+    name text,
+    event_date varchar,
+    summary text,
 );
