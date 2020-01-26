@@ -7,6 +7,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
+const pg = require('pg');
 
 //Application Setup
 const PORT = process.env.PORT;
@@ -16,7 +17,7 @@ app.use(cors());
 
 // Endpoint calls
 //route syntax = app.<operation>('<route>', callback);
-app.get('/location', locationHandler);
+app.get('/locations', locationHandler);
 app.get('/weather', weatherHandler);
 app.get('/events', eventsHandler);
 
@@ -42,6 +43,14 @@ function Event (event) {
 }
 
 // Endpoint callback functions
+
+
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', err => console.error('pg problms', err));
+
+
+
+
 
 function locationHandler(request, response) {
   try {
@@ -84,7 +93,7 @@ function eventsHandler(request, response) {
   try {
     const lat = request.query.latitude;
     const lon = request.query.longitude;
-    const url = `http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&location=${lat},${lon}&within=10&page_size=20&date=Future`;
+    const url = `http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&locations=${lat},${lon}&within=10&page_size=20&date=Future`;
     superagent.get(url)
       .then(data => {
         const eventArr = JSON.parse(data.text).events.event;
@@ -107,4 +116,15 @@ function errorHandler (error, request, response) {
 }
 
 
-app.listen(PORT, () => console.log(`Server up on port ${PORT}`));
+// app.listen(PORT, () => console.log(`Server up on port ${PORT}`));
+
+
+client.connect()
+  .then( () => {
+    app.listen(PORT, () => {
+      console.log('server up on', PORT);
+    });
+  })
+  .catch(err => {
+    console.error('pg connect error', err);
+  });
