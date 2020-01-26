@@ -44,8 +44,10 @@ function Event (event) {
 // CLIENT info
 
 const client = new pg.Client(process.env.DATABASE_URL);
-client.on('error', err => console.error('pg problms', err));
+client.on('error', err => console.error('pg problems', err));
 
+console.log(client);
+how
 // Endpoint callback functions
 
 function locationHandler(request, response) {
