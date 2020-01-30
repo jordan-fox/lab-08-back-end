@@ -17,7 +17,8 @@ app.use(cors());
 
 // Endpoint calls
 //route syntax = app.<operation>('<route>', callback);
-app.get('/locations', locationHandler);
+app.get('/hello', (request, response) => response.send('Hello, World!'));
+app.get('/location', locationHandler);
 app.get('/weather', weatherHandler);
 app.get('/events', eventsHandler);
 
@@ -46,20 +47,22 @@ function Event (event) {
 
 
 const client = new pg.Client(process.env.DATABASE_URL);
-client.on('error', err => console.error('pg problms', err));
+client.on('error', err => console.error('pg problems', err));
 
 
 
 
 
 function locationHandler(request, response) {
+  console.log('location Pol');
   try {
     const city = request.query.city;
-    let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json&limit-1`;
+    let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json&limit=1`;
     superagent.get(url)
       .then(data => {
         const geoData = data.body[0];
         const locationData = new Location(city, geoData);
+        console.log('response ', locationData);
         response.send(locationData);
       });
   }
@@ -111,7 +114,7 @@ function eventsHandler(request, response) {
 // Error Handler function
 
 function errorHandler (error, request, response) {
-  console.log('inside errorHandler');
+  console.log('inside errorHandler', error);
   response.status(500).send(error);
 }
 
