@@ -78,9 +78,11 @@ function weatherHandler(request, response) {
     const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${lat},${lon}`;
     superagent.get(url)
       .then(data => {
+        console.log('data.body: ', data.body);
         let weatherArr = data.body.daily.data.map(obj => {
           // Adreinne helped solve the time display issue
           let time = new Date(obj.time * 1000).toString().slice(0, 15);
+//          console.log('city ', )
           return new Weather(time, obj.summary);
 
         });
@@ -96,7 +98,7 @@ function eventsHandler(request, response) {
   try {
     const lat = request.query.latitude;
     const lon = request.query.longitude;
-    const url = `http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&locations=${lat},${lon}&within=10&page_size=20&date=Future`;
+    const url = `http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&location=${lat},${lon}&within=10&page_size=20&date=Future`;
     superagent.get(url)
       .then(data => {
         const eventArr = JSON.parse(data.text).events.event;
