@@ -21,3 +21,4 @@ CREATE TABLE events (
     event_date varchar,
     summary text
 );
+

@@ -17,7 +17,8 @@ app.use(cors());
 
 // Endpoint calls
 //route syntax = app.<operation>('<route>', callback);
-app.get('/locations', locationHandler);
+app.get('/hello', (request, response) => response.send('Hello, World!'));
+app.get('/location', locationHandler);
 app.get('/weather', weatherHandler);
 app.get('/events', eventsHandler);
 
@@ -46,20 +47,22 @@ function Event (event) {
 
 
 const client = new pg.Client(process.env.DATABASE_URL);
-client.on('error', err => console.error('pg problms', err));
+client.on('error', err => console.error('pg problems', err));
 
 
 
 
 
 function locationHandler(request, response) {
+  console.log('location Pol');
   try {
     const city = request.query.city;
-    let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json&limit-1`;
+    let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json&limit=1`;
     superagent.get(url)
       .then(data => {
         const geoData = data.body[0];
         const locationData = new Location(city, geoData);
+        console.log('response ', locationData);
         response.send(locationData);
       });
   }
@@ -75,9 +78,11 @@ function weatherHandler(request, response) {
     const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${lat},${lon}`;
     superagent.get(url)
       .then(data => {
+        console.log('data.body: ', data.body);
         let weatherArr = data.body.daily.data.map(obj => {
           // Adreinne helped solve the time display issue
           let time = new Date(obj.time * 1000).toString().slice(0, 15);
+//          console.log('city ', )
           return new Weather(time, obj.summary);
 
         });
@@ -93,7 +98,7 @@ function eventsHandler(request, response) {
   try {
     const lat = request.query.latitude;
     const lon = request.query.longitude;
-    const url = `http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&locations=${lat},${lon}&within=10&page_size=20&date=Future`;
+    const url = `http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&location=${lat},${lon}&within=10&page_size=20&date=Future`;
     superagent.get(url)
       .then(data => {
         const eventArr = JSON.parse(data.text).events.event;
@@ -111,7 +116,7 @@ function eventsHandler(request, response) {
 // Error Handler function
 
 function errorHandler (error, request, response) {
-  console.log('inside errorHandler');
+  console.log('inside errorHandler', error);
   response.status(500).send(error);
 }
 
