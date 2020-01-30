@@ -22,3 +22,14 @@ CREATE TABLE events (
     summary text
 );
 
+
+//
+
+INSERT INTO locations (search_query, formatted_query, latitude, longitude);
+VALUES (a, a, 12, 12);
+
+INSERT INTO weather (time, forecast);
+VALUES (a, a);
+
+INSERT INTO events (link, name, event_date, summary);
+VALUES (a, a, 3, a);
