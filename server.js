@@ -82,9 +82,7 @@ function weatherHandler(request, response) {
         let weatherArr = data.body.daily.data.map(obj => {
           // Adreinne helped solve the time display issue
           let time = new Date(obj.time * 1000).toString().slice(0, 15);
-//          console.log('city ', )
           return new Weather(time, obj.summary);
-
         });
         response.send(weatherArr);
       });
